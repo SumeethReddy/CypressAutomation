@@ -13,7 +13,7 @@ jobs:
       run: npm ci
 
   tests:  
-    
+    runs-on: ubuntu-latest
     steps:
     - name: Run Cypress tests
       run: npx cypress run --headless --browser chrome
