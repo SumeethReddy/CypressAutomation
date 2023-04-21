@@ -17,7 +17,7 @@ jobs:
 
     needs: build
 
-     strategy:
+    strategy:
       matrix:
         test_num:
           - 1
