@@ -32,4 +32,4 @@ jobs:
       run: npm ci
 
     - name: Run Cypress tests
-      run: npx cypress run --headless --browser chrome --spec "cypress/integration/examples/test$test_num.js"
+      run: npx cypress run --headless --browser chrome --spec "cypress/integration/examples/test${{ matrix.test_num }}.js"
