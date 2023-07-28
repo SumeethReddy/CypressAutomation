@@ -1,25 +1,31 @@
-describe('My first Test Suite', function() 
-{
+describe('My first http call tests', function() {
 
-it('My first test case', function(){
+    it('Testing http calls', () => {
 
+        cy.visit('https://rahulshettyacademy.com/angularAppdemo/')
 
-cy.visit("https://rahulshettyacademy.com/seleniumPractise/#/")
-cy.get('.search-keyword').type('ca')
-cy.wait(2000)
-cy.get('.product:visible').should('have.length', 4)
-//Parent Child chaining
-cy.get('.products').find('.product').should('have.length', 4)
-cy.get('.products').find('.product').eq(2).contains('ADD TO CART').click()
+        cy.intercept({
+            method : 'GET',
+            url: 'https://rahulshettyacademy.com/Library/GetBook.php?AuthorName=shetty'
+        },
+        
+        {
+            statusCode : 200,
+            body : [
+                {
+                    "book_name": "RobotFramework",
+                    "isbn": "984353",
+                    "aisle": "982053"
+                }]
+        }).as('bookretrievals')
+        cy.get("button[class='btn btn-primary']").click()
+        cy.wait('@bookretrievals').should(({request, response}) => 
+        {
+            cy.get('tr').should('have.length', response.body.length+1) 
+        })
+        cy.get('p').should('have.text', 'Oops only 1 Book available');
+    })
 
-cy.get('.products').find('.product').each(($el, index, $list)=>{
-    
-    
-const textVeg = $el.find('h4.product-name').text()
-if(textVeg.includes("Cashews")){
-    cy.wrap($el).find('button').click()
-}
-})
-})
+    //length of the response array = rows of the table
 
 })
