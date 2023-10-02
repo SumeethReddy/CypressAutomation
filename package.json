@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^10.11.0"
+    "cypress": "^13.3.0"
   },
   "dependencies": {
     "jasmine": "^4.6.0"
